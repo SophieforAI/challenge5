@@ -10,7 +10,10 @@ import json
 
 class FlaskDocPipeline(object):
     def process_item(self, item, spider):
-        item['text']=json.load(re.sub(r's',' ',item['text']))
+        #item['text']=json.load(re.sub(r's',' ',item['text']))
+        item['text'] = re.sub('\s+', ' ', item['text'])
+        self.redis.lpush('flask_doc:items', json.dumps(dict(item)))
+        return item
         r = redis.Redis()
         item = r.get(item)
         return item

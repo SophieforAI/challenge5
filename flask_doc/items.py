@@ -10,8 +10,8 @@ import scrapy
 
 class FlaskDocItem(scrapy.Item):
     # define the fields for your item here like:
-    item_url = scrapy.Field()
-    item_text = scrapy.Field()
+    url = scrapy.Field()
+    text = scrapy.Field()
 
 
 

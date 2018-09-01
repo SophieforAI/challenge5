@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spiders import Rule
+
 from scrapy.linkextractors import LinkExtractor
 from flask_doc.items import FlaskDocItem
 
@@ -9,12 +10,18 @@ from flask_doc.items import FlaskDocItem
 
 class FlaskSpider(scrapy.spiders.CrawlSpider):
     name = 'flask'
-    allowed_domains = ['flask.pocoo.org/docs/0.12/']
-    start_urls = ['http://flask.pocoo.org/docs/0.12//']
+    #allowed_domains = ['flask.pocoo.org/docs/0.12/']
+    start_urls = ['http://flask.pocoo.org/docs/0.12']
     rules= (
-        Rule(LinkExtractor(allow='flask.pocoo.org/docs/'),callback='parse',follow=True),
+        Rule(LinkExtractor(allow='flask.pocoo.org/docs/0.12/.*'),callback='parse_Scorpion',follow=True),
         )
 
+    def parse_Scorpion(self, response):
+        yield FlaskDocItem({
+            'url': response.url,
+            'text': ''.join(response.css('::text').extract())
+        })
+'''
     def parse_parse(self, response):
         item = FlaskDocItem()
         for url in response.css(li.toctree-l1):
@@ -33,4 +40,4 @@ class FlaskSpider(scrapy.spiders.CrawlSpider):
         yield item 
 
 
-
+'''
