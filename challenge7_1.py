@@ -15,13 +15,12 @@ def co2():
     Sum_emissions = df_climate_country_group['Sum emissions'].sum()
     df_climate_country_c_group = df_climate_country.groupby(['Income group','Country name_y'],as_index=False)
     Sum_emissions_country = df_climate_country_c_group['Sum emissions'].sum()
-    highest_emissions = Sum_emissions_country.groupby(['Income group'],as_index = False).max()
-    lowest_emissions = Sum_emissions_country.groupby(['Income group'],as_index = False).min()
-    result = pd.concat([Sum_emissions,highest_emissions,lowest_emissions],axis=1)
-    results = result.iloc[:,[0,1,3,4,6,7]]
-    results.columns = ['Income group','Sum emissions','Highest emission country','Highest emissions','Lowest emission country','Lowest emissions']
+    Sum_emissions_sum = Sum_emissions_country.groupby(['Income group']).sum()
+    highest_emissions = Sum_emissions_country.sort_values(by='Sum emissions',ascending=False).groupby('Income group').head(1).set_index('Income group')
+    lowest_emissions = Sum_emissions_country.sort_values(by='Sum emissions',ascending=True).groupby('Income group').head(1).set_index('Income group')
+    results = pd.concat([Sum_emissions_sum,highest_emissions,lowest_emissions],axis=1)
+    results.columns = ['Sum emissions','Highest emission country','Highest emissions','Lowest emission country','Lowest emissions']
 
-    results =results.set_index('Income group')
     return results
 
 print(co2())
