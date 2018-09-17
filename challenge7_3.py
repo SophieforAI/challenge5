@@ -1,5 +1,5 @@
 import pandas as pd
-import matplotlib import pyplot plt
+from matplotlib import pyplot as plt
 
 def climate_plot():
     df_climate = pd.read_excel('ClimateChange.xlsx',sheetname='Data')
@@ -22,6 +22,13 @@ O.KT.CE','EN.CLC.GHGR.MT.CE']
     df_temperature.index = pd.to_datetime(list(df_temperature.index))
     DEC_sum = df_temperature.resample('A-DEC',how='sum')
     DEC_sum_selected = DEC_sum[pd.datetime(1990,1,1):]
+    DEC_sum_selected.index = pd.to_datetime(list(DEC_sum_selected.index)).year
+    DEC_sum_selected.index = DEC_sum_selected.index.astype('object')
+    pic_data1_2 = pd.concat([DEC_sum_selected,gas_sum],axis=1)
+    pic_data1_2 = pic_data1_2.loc['1990':'2010']
+    pic_data1_2.rename(columns={0:'gas_sum'},inplace = True)
+    df_max_min = (pic_data1_2-pic_data1_2.min())/(pic_data1_2.max()-pic_data1_2.min())
+
 
     #picture 1
     #picture 2
