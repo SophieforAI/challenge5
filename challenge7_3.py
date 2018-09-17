@@ -21,6 +21,8 @@ O.KT.CE','EN.CLC.GHGR.MT.CE']
     df_temperature = df_temperature.fillna(method='ffill',axis=1).fillna(method='bfill',axis=1) 
     df_temperature.index = pd.to_datetime(list(df_temperature.index))
     DEC_sum = df_temperature.resample('A-DEC',how='sum')
+    DEC_sum_selected = DEC_sum[pd.datetime(1990,1,1):]
+
     #picture 1
     #picture 2
     #picture 3
