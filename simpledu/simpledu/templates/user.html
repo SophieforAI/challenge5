@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{%block title %}Home{% endblock %}
+
+{%block body %}
+{% for user in users %}
+{% if user.username==username %}
+<h1>ID: {{ user.id }}</h1>
+<h1>Username: {{ user.username }}</h1>
+<h1>Pulished courses: </h1>
+{% for publish in user.publish_courses %}
+ <p>{{publish.name}}</p>
+ 
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+{% endblock %}
+
