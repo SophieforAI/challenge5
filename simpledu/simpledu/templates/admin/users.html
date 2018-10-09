@@ -4,13 +4,22 @@
 Admin - users
 {% endblock %}
 
+{% block operation %}
+<a href="{{ url_for('admin.create_user') }}" type="button" class="btn btn-primary">
+    <span class="glyphicon plyphicon-plus" aria-hidden="true"></span>
+    æ·»åŠ ç”¨æˆ·
+</a>
+{% endblock %}
+
+
+
 {% block admin %}
 <table class='table'>
     <thead>
         <tr>
             <th>ID</th>
-            <th>ÓÃ»§Ãû</th>
-            <th>²Ù×÷</th>
+            <th>ç”¨æˆ·å</th>
+            <th>æ“ä½œ</th>
         </tr>
         <tbody>
           {% for user in pagination.items %}
@@ -19,11 +28,11 @@ Admin - users
               <td>{{user.username}}</td>
               <td>
                   <div class="btn-group" role="group">
-                      <a href="" type="button" class="btn btn-default" title="±à¼­">
-                          <span class="glyphicon glyphicon-pencil" title="±à¼­" aria-hidden="true"></span>
+                      <a href="" type="button" class="btn btn-default" title="ç¼–è¾‘">
+                          <span class="glyphicon glyphicon-pencil" title="ç¼–è¾‘" aria-hidden="true"></span>
                       </a>
-                      <a href="" type="button" class="btn btn-default" title="É¾³ı">
-                          <span class="glyphicon glyphicon-trash" title="É¾³ı" aria-hidden="true"></span>
+                      <a href="" type="button" class="btn btn-default" title="åˆ é™¤">
+                          <span class="glyphicon glyphicon-trash" title="åˆ é™¤" aria-hidden="true"></span>
                       </a>
                    </div>
               </td>

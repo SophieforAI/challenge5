@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash
 from simpledu.decorators import admin_required
 from simpledu.models import Course,User
-from simpledu.forms import CourseForm
+from simpledu.forms import CourseForm,UserForm
 from flask import request,current_app
 
 
@@ -49,6 +49,7 @@ def edit_course(course_id):
         return redirect(url_for('admin.courses'))
     return render_template('admin/edit_course.html', form=form, course=course)
 
+##-----------------------------------------------------manage users
 @admin.route('/users')
 @admin_required
 def users():
@@ -58,6 +59,17 @@ def users():
             per_page=current_app.config['USER_PER_PAGE'],
             error_out= False
             )
-    return render_template('admin/user.html',pagination=pagination)
+    return render_template('admin/users.html',pagination=pagination)
+
+
+@admin.route('/users/create',methods=['GET','POST'])
+@admin_required
+def create_user():
+    form = UserForm()
+    if form.validate_on_submit():
+        form.create_user()
+        flash('用户创建成功','success')
+        return redirect(url_for('admin.users'))
+    return render_template('admin/create_user.html',form=form)
 
 

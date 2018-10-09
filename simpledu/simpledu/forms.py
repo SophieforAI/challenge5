@@ -69,3 +69,28 @@ class CourseForm(FlaskForm):
         db.session.add(course)
         db.session.commit()
         return course
+
+class UserForm(FlaskForm):
+    username = StringField('用户名',validators=[DataRequired(),Length(5,32)])
+    email = StringField('邮箱',validators=[DataRequired(),Email()])
+    password = PasswordField('密码',validators=[DataRequired(),Length(6,24)])
+    repeat_password = PasswordField('重复密码',validators=[DataRequired(),EqualTo('password')])
+    submit = SubmitField('提交')
+
+    def validate_user_id(self,field):
+        if User.query.get(self.username.data):
+            raise ValidationError('用户已存在')
+
+    def create_user(self):
+        user = User()
+        self.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+    def update_user(self,user):
+        self.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+        return user
+        
