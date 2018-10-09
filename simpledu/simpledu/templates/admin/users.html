@@ -7,7 +7,7 @@ Admin - users
 {% block operation %}
 <a href="{{ url_for('admin.create_user') }}" type="button" class="btn btn-primary">
     <span class="glyphicon plyphicon-plus" aria-hidden="true"></span>
-    添加用户
+    Add User
 </a>
 {% endblock %}
 
@@ -28,10 +28,10 @@ Admin - users
               <td>{{user.username}}</td>
               <td>
                   <div class="btn-group" role="group">
-                      <a href="" type="button" class="btn btn-default" title="编辑">
+                      <a href="{{url_for('admin.edit_user',user_id=user.id)}}" type="button" class="btn btn-default" title="编辑">
                           <span class="glyphicon glyphicon-pencil" title="编辑" aria-hidden="true"></span>
                       </a>
-                      <a href="" type="button" class="btn btn-default" title="删除">
+                      <a href="{{url_for('admin.delete_user',user_id=user.id,)}}" type="button" class="btn btn-default" title="删除">
                           <span class="glyphicon glyphicon-trash" title="删除" aria-hidden="true"></span>
                       </a>
                    </div>

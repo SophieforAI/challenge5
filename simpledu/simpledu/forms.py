@@ -71,10 +71,10 @@ class CourseForm(FlaskForm):
         return course
 
 class UserForm(FlaskForm):
-    username = StringField('用户名',validators=[DataRequired(),Length(5,32)])
-    email = StringField('邮箱',validators=[DataRequired(),Email()])
-    password = PasswordField('密码',validators=[DataRequired(),Length(6,24)])
-    repeat_password = PasswordField('重复密码',validators=[DataRequired(),EqualTo('password')])
+    username = StringField('用户名',validators=[Required(),Length(5,32)])
+    email = StringField('邮箱',validators=[Required(),Email()])
+    password = PasswordField('密码',validators=[Required(),Length(6,24)])
+    repeat_password = PasswordField('重复密码',validators=[Required(),EqualTo('password')])
     submit = SubmitField('提交')
 
     def validate_user_id(self,field):
@@ -93,4 +93,4 @@ class UserForm(FlaskForm):
         db.session.add(user)
         db.session.commit()
         return user
-        
+
